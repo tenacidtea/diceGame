@@ -1,24 +1,35 @@
 "use strict";
 
-function displayResult(dataToBeDisplayed) {
+function displayResult(dataToBeDisplayed){
 	console.log(dataToBeDisplayed);
+}
+
+// displayResult("Hello World");
+
+function displayAlert(alertToBeDisplayed){
+	alert(alertToBeDisplayed);
+}
+
+function getUserInput(message){
+	let response = prompt(message);
+	return response;
 }
 
 function totalScoreForThisRoll(randomDieRollArray){
 	let rollScore = 0;
-	if (randomDieRollArray[0] === 0) {
+	if (randomDieRollArray[0] === 0){
 		for(let index = 2; index < randomDieRollArray.length; index++){
 			rollScore =+ rollScore + randomDieRollArray[index];
 		}
 	}
 	else {
-		if (randomDieRollArray[1] === 1) {
+		if (randomDieRollArray[1] === 1){
 			rollScore = randomDieRollArray[2];
 		}
-		else if (randomDieRollArray[1] === 2) {
+		else if (randomDieRollArray[1] === 2){
 			rollScore = randomDieRollArray[3];
 		}
-		else if (randomDieRollArray[1] === 3) {
+		else if (randomDieRollArray[1] === 3){
 			rollScore = randomDieRollArray[4];
 		}
 		else {
@@ -27,8 +38,6 @@ function totalScoreForThisRoll(randomDieRollArray){
 	}
 	return rollScore;
 }
-
-// displayResult("Hello World");
 
 function getRandomDieValues(){
 	let randomDieRollArray = [];
@@ -42,7 +51,17 @@ function getRandomDieValues(){
 	return (randomDieRollArray);
 }
 
-displayResult(totalScoreForThisRoll(getRandomDieValues()));
+function runGame(){
+	let roundsRequestedByPlayer = getUserInput("How many rounds would you like to play?");
+	for(let index = 1; index <= roundsRequestedByPlayer; index++){
+		let player = totalScoreForThisRoll(getRandomDieValues());
+		let computer = totalScoreForThisRoll(getRandomDieValues());
+		displayAlert("Score for Round #" + index + ":\n\n\nPlayer: " + player + "\n\nComputer: " + computer);
+	}
+}
 
+
+// displayResult(totalScoreForThisRoll(getRandomDieValues()));
+runGame();
 
 	
