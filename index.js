@@ -15,10 +15,18 @@ function getUserInput(message){
 	return response;
 }
 
+function createCumulativeScores(scoreArray){
+	// let newCumulativeScore = scoreArray[6] + scoreArray[7];
+	// This shorthand is not working ...scoreArray[7] =+ scoreArray[6];
+	let newCumulativeScore = scoreArray[7] + scoreArray[6];
+	scoreArray[7] = newCumulativeScore;
+	return scoreArray;
+}
+
 function totalScoreForThisRoll(randomDieRollArray){
 	let rollScore = 0;
 	if (randomDieRollArray[0] === 0){
-		for(let index = 2; index < randomDieRollArray.length; index++){
+		for(let index = 2; index < 6; index++){
 			rollScore =+ rollScore + randomDieRollArray[index];
 		}
 	}
@@ -36,27 +44,37 @@ function totalScoreForThisRoll(randomDieRollArray){
 			rollScore = randomDieRollArray[5];
 		}
 	}
-	return rollScore;
+	randomDieRollArray[6] = rollScore;
+	return randomDieRollArray;
 }
 
-function getRandomDieValues(){
-	let randomDieRollArray = [];
+/* 
+function getRandomDieValues(randomDieRollArray){
+	randomDieRollArray = [Math.floor(Math.random() * 2), Math.floor(Math.random() * 4) + 1, Math.floor(Math.random() * 24) + 1, Math.floor(Math.random() * 48) + 1, Math.floor(Math.random() * 72) + 1, Math.floor(Math.random() * 96) + 1];
+	return (randomDieRollArray);
+}
+*/
+
+ function getRandomDieValues(randomDieRollArray){
 	randomDieRollArray[0] = Math.floor(Math.random() * 2);
 	randomDieRollArray[1] = Math.floor(Math.random() * 4) + 1;
 	randomDieRollArray[2] = Math.floor(Math.random() * 24) + 1;
 	randomDieRollArray[3] = Math.floor(Math.random() * 48) + 1;
 	randomDieRollArray[4] = Math.floor(Math.random() * 72) + 1;
 	randomDieRollArray[5] = Math.floor(Math.random() * 96) + 1;
-
 	return (randomDieRollArray);
 }
 
 function runGame(){
+	// let randomDieRollArray = [];
+	let player = [0, 0, 0, 0, 0, 0, 0, 0];
+	let computer = [0, 0, 0, 0, 0, 0, 0, 0];
 	let roundsRequestedByPlayer = getUserInput("How many rounds would you like to play?");
 	for(let index = 1; index <= roundsRequestedByPlayer; index++){
-		let player = totalScoreForThisRoll(getRandomDieValues());
-		let computer = totalScoreForThisRoll(getRandomDieValues());
-		displayAlert("Score for Round #" + index + ":\n\n\nPlayer: " + player + "\n\nComputer: " + computer);
+		displayAlert("Roll Dice\n         |\n         |\n         |\n         |\n         |\n         |\n          ------------------------------------------->");
+		player = createCumulativeScores(totalScoreForThisRoll(getRandomDieValues(player)));
+		computer = createCumulativeScores(totalScoreForThisRoll(getRandomDieValues(computer)));
+		displayAlert("Score for Round #" + index + ":\n\n\nPlayer: " + player[6] + "          Grand Total: " + player[7] + "\n\nComputer: " + computer[6] + "          Grand Total: " + computer[7]);
 	}
 }
 
