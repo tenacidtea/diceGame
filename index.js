@@ -70,10 +70,19 @@ function runGame(){
 	for(let index = 1; index <= roundsRequestedByPlayer; index++){
 		displayAlert("Roll Dice\n         |\n         |\n         |\n         |\n         |\n         |\n          ------------------------------------------->");
 		player = createCumulativeScores(totalScoreForThisRoll(getRandomDieValues(player)));
-		displayAlert("Player rolls:\n\n2 Sided Die: " + player[0] + "\n4 Sided Die: " + player[1] + "\n24 Sided Die: " + player[2] + "\n48 Sided Die: " + player[3] + "\n72 Sided Die: " + player[4] + "\n96 Sided Die: " + player[5] + "\n\nTotal For This Roll: " + player[6]);
+		displayAlert("Player rolls:\n----------------------------------------\n\Position Selector Toggle die:    " + player[0] + "\nPosition Selector die:                " + player[1] + "\nPosition #1 die:                         " + player[2] + "\nPosition #2 die:                         " + player[3] + "\nPosition #3 die:                         " + player[4] + "\nPosition #4 die:                         " + player[5] + "\n----------------------------------------\nTotal For This Roll:                     " + player[6]);
 		computer = createCumulativeScores(totalScoreForThisRoll(getRandomDieValues(computer)));
-		displayAlert("Computer rolls:\n\n2 Sided Die: " + computer[0] + "\n4 Sided Die: " + computer[1] + "\n24 Sided Die: " + computer[2] + "\n48 Sided Die: " + computer[3] + "\n72 Sided Die: " + computer[4] + "\n96 Sided Die: " + computer[5] + "\n\nTotal For This Roll: " + computer[6]);
-		displayAlert("Score for Round #" + index + ":\n\n\nPlayer: " + player[6] + "          Grand Total: " + player[7] + "\n\nComputer: " + computer[6] + "          Grand Total: " + computer[7]);
+		displayAlert("Computer rolls:\n----------------------------------------\n\Position Selector Toggle die:    " + computer[0] + "\nPosition Selector die:                " + computer[1] + "\nPosition #1 die:                         " + computer[2] + "\nPosition #2 die:                         " + computer[3] + "\nPosition #3 die:                         " + computer[4] + "\nPosition #4 die:                         " + computer[5] + "\n----------------------------------------\nTotal For This Roll:                     " + computer[6]);
+		displayAlert("Score for Round #" + index + ":\n\n\n      Player: " + player[6] + "          Grand Total: " + player[7] + "\n\nComputer: " + computer[6] + "          Grand Total: " + computer[7]);
+	}
+	if(player[7] > computer[7]){
+		displayAlert("Yippee\n\nPlayer Wins with " + player[7] + " points!!");
+	}
+	else if(player[7] !== computer[7]){
+		displayAlert("Dog gone that computer gets me every time :(\n\nComputer Wins with " + computer[7] + " points!!");
+	}
+	else{
+		displayAlert("It's a draw folks\n\nPlayer and Computer Tie!\n\nCome back soon and play again.");
 	}
 }
 
