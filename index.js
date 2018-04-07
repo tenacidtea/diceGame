@@ -4,8 +4,6 @@ function displayResult(dataToBeDisplayed){
 	console.log(dataToBeDisplayed);
 }
 
-// displayResult("Hello World");
-
 function displayAlert(alertToBeDisplayed){
 	alert(alertToBeDisplayed);
 }
@@ -16,7 +14,6 @@ function getUserInput(message){
 }
 
 function createCumulativeScores(scoreArray){
-	// let newCumulativeScore = scoreArray[6] + scoreArray[7];
 	// This shorthand is not working ...scoreArray[7] =+ scoreArray[6];
 	let newCumulativeScore = scoreArray[7] + scoreArray[6];
 	scoreArray[7] = newCumulativeScore;
@@ -25,22 +22,22 @@ function createCumulativeScores(scoreArray){
 
 function totalScoreForThisRoll(randomDieRollArray){
 	let rollScore = 0;
-	if (randomDieRollArray[0] === 0){
+	if(randomDieRollArray[0] === 0){
 		for(let index = 2; index < 6; index++){
 			rollScore =+ rollScore + randomDieRollArray[index];
 		}
 	}
-	else {
-		if (randomDieRollArray[1] === 1){
+	else{
+		if(randomDieRollArray[1] === 1){
 			rollScore = randomDieRollArray[2];
 		}
-		else if (randomDieRollArray[1] === 2){
+		else if(randomDieRollArray[1] === 2){
 			rollScore = randomDieRollArray[3];
 		}
-		else if (randomDieRollArray[1] === 3){
+		else if(randomDieRollArray[1] === 3){
 			rollScore = randomDieRollArray[4];
 		}
-		else {
+		else{
 			rollScore = randomDieRollArray[5];
 		}
 	}
@@ -73,7 +70,9 @@ function runGame(){
 	for(let index = 1; index <= roundsRequestedByPlayer; index++){
 		displayAlert("Roll Dice\n         |\n         |\n         |\n         |\n         |\n         |\n          ------------------------------------------->");
 		player = createCumulativeScores(totalScoreForThisRoll(getRandomDieValues(player)));
+		displayAlert("Player rolls:\n\n2 Sided Die: " + player[0] + "\n4 Sided Die: " + player[1] + "\n24 Sided Die: " + player[2] + "\n48 Sided Die: " + player[3] + "\n72 Sided Die: " + player[4] + "\n96 Sided Die: " + player[5] + "\n\nTotal For This Roll: " + player[6]);
 		computer = createCumulativeScores(totalScoreForThisRoll(getRandomDieValues(computer)));
+		displayAlert("Computer rolls:\n\n2 Sided Die: " + computer[0] + "\n4 Sided Die: " + computer[1] + "\n24 Sided Die: " + computer[2] + "\n48 Sided Die: " + computer[3] + "\n72 Sided Die: " + computer[4] + "\n96 Sided Die: " + computer[5] + "\n\nTotal For This Roll: " + computer[6]);
 		displayAlert("Score for Round #" + index + ":\n\n\nPlayer: " + player[6] + "          Grand Total: " + player[7] + "\n\nComputer: " + computer[6] + "          Grand Total: " + computer[7]);
 	}
 }
