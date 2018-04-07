@@ -8,9 +8,24 @@ function displayAlert(alertToBeDisplayed){
 	alert(alertToBeDisplayed);
 }
 
-function getUserInput(message){
-	let response = prompt(message);
-	return response;
+function getUserInput(message, validator){
+	let playerResponse = prompt(message);
+	if(validator(playerResponse)){
+		return playerResponse;
+	}
+	else{
+	return getUserInput(message, validator);
+	}
+}
+
+function validateForPositiveIntegerInput(playerResponse){
+	if(playerResponse >>> 0 === parseFloat(playerResponse)){
+		return true;
+	}
+	else{
+		displayAlert("User input must be a positive integer between 1 and infinity.  Please re-enter");
+		return false;
+	}
 }
 
 function createCumulativeScores(scoreArray){
@@ -45,13 +60,6 @@ function totalScoreForThisRoll(randomDieRollArray){
 	return randomDieRollArray;
 }
 
-/* 
-function getRandomDieValues(randomDieRollArray){
-	randomDieRollArray = [Math.floor(Math.random() * 2), Math.floor(Math.random() * 4) + 1, Math.floor(Math.random() * 24) + 1, Math.floor(Math.random() * 48) + 1, Math.floor(Math.random() * 72) + 1, Math.floor(Math.random() * 96) + 1];
-	return (randomDieRollArray);
-}
-*/
-
  function getRandomDieValues(randomDieRollArray){
 	randomDieRollArray[0] = Math.floor(Math.random() * 2);
 	randomDieRollArray[1] = Math.floor(Math.random() * 4) + 1;
@@ -66,7 +74,7 @@ function runGame(){
 	// let randomDieRollArray = [];
 	let player = [0, 0, 0, 0, 0, 0, 0, 0];
 	let computer = [0, 0, 0, 0, 0, 0, 0, 0];
-	let roundsRequestedByPlayer = getUserInput("How many rounds would you like to play?");
+	let roundsRequestedByPlayer = getUserInput("How many rounds would you like to play?", validateForPositiveIntegerInput);
 	for(let index = 1; index <= roundsRequestedByPlayer; index++){
 		displayAlert("Roll Dice\n         |\n         |\n         |\n         |\n         |\n         |\n          ------------------------------------------->");
 		player = createCumulativeScores(totalScoreForThisRoll(getRandomDieValues(player)));
@@ -86,8 +94,4 @@ function runGame(){
 	}
 }
 
-
-// displayResult(totalScoreForThisRoll(getRandomDieValues()));
 runGame();
-
-	
